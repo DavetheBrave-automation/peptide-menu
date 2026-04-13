@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peptides | Heather Necaise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#0a1628',
+                        navyLight: '#1a2332',
+                        steel: '#4682b4',
+                        cyan: '#00d4ff',
+                        offWhite: '#e8edf3',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        * {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a1628 0%, #0d1e36 50%, #0a1628 100%);
+            min-height: 100vh;
+        }
+        
+        /* Subtle grid background */
+        .bg-grid {
+            background-image: 
+                linear-gradient(rgba(70, 130, 180, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(70, 130, 180, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        
+        /* Glassmorphism cards */
+        .glass {
+            background: rgba(26, 35, 50, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(70, 130, 180, 0.2);
+        }
+        
+        .glass:hover {
+            border-color: rgba(0, 212, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
+        }
+        
+        /* Glowing button */
+        .btn-glow {
+            background: linear-gradient(135deg, #4682b4 0%, #00d4ff 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-glow:hover {
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
+            transform: translateY(-1px);
+        }
+        
+        /* Accordion */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .accordion-content.open {
+            max-height: 500px;
+        }
+        
+        /* Product description expand */
+        .product-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .product-details.open {
+            max-height: 200px;
+        }
+        
+        /* Mobile cart bar */
+        .cart-bar {
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .cart-bar.visible {
+            transform: translateY(0);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #0a1628;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #4682b4;
+            border-radius: 4px;
+        }
+        
+        /* Form inputs */
+        input, select, textarea {
+            background: rgba(10, 22, 40, 0.8) !important;
+            border: 1px solid rgba(70, 130, 180, 0.3) !important;
+            color: #e8edf3 !important;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: #00d4ff !important;
+            outline: none !important;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2) !important;
+        }
+        
+        input::placeholder, textarea::placeholder {
+            color: rgba(232, 237, 243, 0.4) !important;
+        }
+        
+        /* Category filter active state */
+        .filter-btn.active {
+            background: linear-gradient(135deg, #4682b4 0%, #00d4ff 100%);
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-navy text-offWhite bg-grid">
+    
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-steel/20">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-cyan">PEPTIDES</h1>
+            <a href="#order" class="btn-glow px-4 py-2 rounded-lg text-sm font-semibold text-white">
+                Order Now
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-steel to-cyan bg-clip-text text-transparent">
+                Premium Research Peptides
+            </h2>
+            <p class="text-offWhite/70 text-lg mb-8">
+                Curated for optimization. Quality guaranteed.
+            </p>
+            <div class="glass rounded-xl p-6 inline-block">
+                <p class="font-semibold text-lg mb-2">Heather Necaise</p>
+                <p class="text-cyan mono">(619) 757-7344</p>
+                <p class="text-steel">Venmo: @heather-Necaise</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-12 px-4">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-2xl font-bold text-center mb-8">How It Works</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass rounded-xl p-6 text-center">
+                    <div class="text-3xl mb-3">📋</div>
+                    <h4 class="font-semibold text-cyan mb-2">1. Select</h4>
+                    <p class="text-sm text-offWhite/70">Browse products and build your order</p>
+                </div>
+                <div class="glass rounded-xl p-6 text-center">
+                    <div class="text-3xl mb-3">💳</div>
+                    <h4 class="font-semibold text-cyan mb-2">2. Pay</h4>
+                    <p class="text-sm text-offWhite/70">Send payment via Venmo</p>
+                </div>
+                <div class="glass rounded-xl p-6 text-center">
+                    <div class="text-3xl mb-3">📦</div>
+                    <h4 class="font-semibold text-cyan mb-2">3. Receive</h4>
+                    <p class="text-sm text-offWhite/70">Ships within 24 hours with tracking</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Catalog -->
+    <section id="products" class="py-12 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h3 class="text-2xl font-bold text-center mb-6">Products</h3>
+            
+            <!-- Category Filters -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <button class="filter-btn active px-4 py-2 rounded-full text-sm glass transition-all" data-category="all">All</button>
+                <button class="filter-btn px-4 py-2 rounded-full text-sm glass transition-all" data-category="weight">Weight</button>
+                <button class="filter-btn px-4 py-2 rounded-full text-sm glass transition-all" data-category="healing">Healing</button>
+                <button class="filter-btn px-4 py-2 rounded-full text-sm glass transition-all" data-category="performance">Performance</button>
+                <button class="filter-btn px-4 py-2 rounded-full text-sm glass transition-all" data-category="cognitive">Cognitive</button>
+                <button class="filter-btn px-4 py-2 rounded-full text-sm glass transition-all" data-category="antiaging">Anti-Aging</button>
+                <button class="filter-btn px-4 py-2 rounded-full text-sm glass transition-all" data-category="immune">Immune</button>
+            </div>
+            
+            <!-- Product Grid -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Products will be injected by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Summary (Sticky on desktop, bottom bar on mobile) -->
+    <div id="cart-desktop" class="hidden lg:block fixed right-4 top-24 w-72 glass rounded-xl p-4 z-40">
+        <h4 class="font-bold text-cyan mb-3">Your Order</h4>
+        <div id="cart-items-desktop" class="space-y-2 mb-4 max-h-64 overflow-y-auto">
+            <p class="text-offWhite/50 text-sm">No items yet</p>
+        </div>
+        <div class="border-t border-steel/30 pt-3 space-y-1">
+            <div class="flex justify-between text-sm">
+                <span>Subtotal</span>
+                <span id="subtotal-desktop" class="mono">$0</span>
+            </div>
+            <div class="flex justify-between text-sm">
+                <span>Shipping</span>
+                <span class="mono">$10</span>
+            </div>
+            <div class="flex justify-between font-bold text-cyan">
+                <span>Total</span>
+                <span id="total-desktop" class="mono">$10</span>
+            </div>
+        </div>
+        <a href="#order" class="btn-glow block text-center mt-4 py-2 rounded-lg font-semibold text-white">
+            Checkout
+        </a>
+    </div>
+
+    <!-- Mobile Cart Bar -->
+    <div id="cart-mobile" class="cart-bar lg:hidden fixed bottom-0 left-0 right-0 glass border-t border-steel/30 p-4 z-50">
+        <div class="flex justify-between items-center">
+            <div>
+                <span id="cart-count" class="text-cyan font-bold">0</span> items
+                <span class="text-offWhite/50 mx-2">•</span>
+                <span id="total-mobile" class="mono font-bold">$10</span>
+            </div>
+            <a href="#order" class="btn-glow px-6 py-2 rounded-lg font-semibold text-white text-sm">
+                Checkout
+            </a>
+        </div>
+    </div>
+
+    <!-- Order Form -->
+    <section id="order" class="py-12 px-4 mb-24 lg:mb-12">
+        <div class="max-w-2xl mx-auto">
+            <h3 class="text-2xl font-bold text-center mb-8">Complete Your Order</h3>
+            
+            <div class="glass rounded-xl p-6 mb-6">
+                <h4 class="font-bold text-cyan mb-4">Order Summary</h4>
+                <div id="order-summary" class="space-y-2 mb-4">
+                    <p class="text-offWhite/50 text-sm">No items in cart</p>
+                </div>
+                <div class="border-t border-steel/30 pt-3 space-y-1">
+                    <div class="flex justify-between text-sm">
+                        <span>Subtotal</span>
+                        <span id="subtotal-order" class="mono">$0</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span>Shipping</span>
+                        <span class="mono">$10</span>
+                    </div>
+                    <div class="flex justify-between font-bold text-lg text-cyan">
+                        <span>Total</span>
+                        <span id="total-order" class="mono">$10</span>
+                    </div>
+                </div>
+            </div>
+            
+            <form id="order-form" class="glass rounded-xl p-6 space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Full Name *</label>
+                    <input type="text" name="name" required class="w-full px-4 py-3 rounded-lg">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-1">Email *</label>
+                    <input type="email" name="email" required class="w-full px-4 py-3 rounded-lg">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-1">Phone *</label>
+                    <input type="tel" name="phone" required class="w-full px-4 py-3 rounded-lg" placeholder="(555) 555-5555">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-1">Street Address *</label>
+                    <input type="text" name="street" required class="w-full px-4 py-3 rounded-lg">
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">City *</label>
+                        <input type="text" name="city" required class="w-full px-4 py-3 rounded-lg">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">State *</label>
+                            <input type="text" name="state" required class="w-full px-4 py-3 rounded-lg" maxlength="2" placeholder="CA">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Zip *</label>
+                            <input type="text" name="zip" required class="w-full px-4 py-3 rounded-lg" maxlength="5">
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-2">Is this your first order? *</label>
+                    <div class="flex gap-4">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="firstOrder" value="yes" required class="w-4 h-4 accent-cyan">
+                            <span>Yes (BAC water included free)</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="firstOrder" value="no" required class="w-4 h-4 accent-cyan">
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-1">Order Notes (optional)</label>
+                    <textarea name="notes" rows="2" class="w-full px-4 py-3 rounded-lg"></textarea>
+                </div>
+                
+                <div>
+                    <label class="flex items-start gap-2 cursor-pointer">
+                        <input type="checkbox" required class="w-4 h-4 mt-1 accent-cyan">
+                        <span class="text-sm text-offWhite/70">I confirm I am 18+ years old and agree to the terms. I understand these products are for research purposes only.</span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-glow w-full py-4 rounded-lg font-bold text-white text-lg">
+                    Submit Order
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Order Confirmation Modal -->
+    <div id="confirmation-modal" class="fixed inset-0 bg-navy/90 z-50 hidden items-center justify-center p-4">
+        <div class="glass rounded-xl p-8 max-w-md w-full text-center">
+            <div class="text-5xl mb-4">✓</div>
+            <h3 class="text-2xl font-bold text-cyan mb-4">Order Submitted!</h3>
+            <p class="text-offWhite/70 mb-4">Order Reference:</p>
+            <p id="order-ref" class="mono text-xl text-cyan mb-6">ORD-000000</p>
+            
+            <div class="glass rounded-lg p-4 mb-6 text-left">
+                <p class="font-semibold mb-2">Payment Instructions:</p>
+                <p class="text-sm mb-2">Send <span id="confirm-total" class="text-cyan font-bold">$0</span> to:</p>
+                <div class="flex items-center justify-between bg-navy/50 rounded-lg p-3 mb-2">
+                    <span class="mono">@heather-Necaise</span>
+                    <button onclick="copyVenmo()" class="text-cyan text-sm hover:underline">Copy</button>
+                </div>
+                <p class="text-xs text-offWhite/50">Include your order # in the Venmo note</p>
+            </div>
+            
+            <p class="text-sm text-offWhite/70 mb-4">
+                Text <span class="text-cyan">(619) 757-7344</span> to confirm payment
+            </p>
+            
+            <button onclick="closeModal()" class="btn-glow px-8 py-3 rounded-lg font-semibold text-white">
+                Done
+            </button>
+        </div>
+    </div>
+
+    <!-- Customer Intake Section -->
+    <section id="intake" class="py-12 px-4 border-t border-steel/20">
+        <div class="max-w-2xl mx-auto">
+            <h3 class="text-2xl font-bold text-center mb-4">Get Personalized Guidance</h3>
+            <p class="text-center text-offWhite/70 mb-8">New to peptides? Fill out this form for personalized recommendations.</p>
+            
+            <form id="intake-form" class="glass rounded-xl p-6 space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Full Name *</label>
+                    <input type="text" name="intake_name" required class="w-full px-4 py-3 rounded-lg">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-1">Email *</label>
+                    <input type="email" name="intake_email" required class="w-full px-4 py-3 rounded-lg">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-1">Phone *</label>
+                    <input type="tel" name="intake_phone" required class="w-full px-4 py-3 rounded-lg">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-2">Primary Wellness Goals (select all that apply)</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="goals" value="weight" class="w-4 h-4 accent-cyan">
+                            <span class="text-sm">Weight Management</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="goals" value="healing" class="w-4 h-4 accent-cyan">
+                            <span class="text-sm">Recovery/Healing</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="goals" value="performance" class="w-4 h-4 accent-cyan">
+                            <span class="text-sm">Performance</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="goals" value="cognitive" class="w-4 h-4 accent-cyan">
+                            <span class="text-sm">Cognitive</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="goals" value="antiaging" class="w-4 h-4 accent-cyan">
+                            <span class="text-sm">Anti-Aging</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" name="goals" value="immune" class="w-4 h-4 accent-cyan">
+                            <span class="text-sm">Immune Support</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-2">Have you used peptides before? *</label>
+                    <div class="flex gap-4">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="experience" value="yes" required class="w-4 h-4 accent-cyan">
+                            <span>Yes</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="experience" value="no" required class="w-4 h-4 accent-cyan">
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-1">If yes, which ones?</label>
+                    <input type="text" name="previous_peptides" class="w-full px-4 py-3 rounded-lg" placeholder="e.g., BPC-157, Semaglutide">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-1">Anything else we should know?</label>
+                    <textarea name="additional_info" rows="3" class="w-full px-4 py-3 rounded-lg" placeholder="Health goals, concerns, questions..."></textarea>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-2">Preferred Contact Method *</label>
+                    <div class="flex gap-4">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="contact_method" value="text" required class="w-4 h-4 accent-cyan">
+                            <span>Text</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="contact_method" value="email" required class="w-4 h-4 accent-cyan">
+                            <span>Email</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-glow w-full py-4 rounded-lg font-bold text-white">
+                    Submit
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FAQs -->
+    <section id="faq" class="py-12 px-4 border-t border-steel/20">
+        <div class="max-w-2xl mx-auto">
+            <h3 class="text-2xl font-bold text-center mb-8">Frequently Asked Questions</h3>
+            
+            <div class="space-y-3">
+                <div class="glass rounded-xl overflow-hidden">
+                    <button class="accordion-btn w-full px-6 py-4 text-left font-medium flex justify-between items-center" onclick="toggleAccordion(this)">
+                        <span>How do I place an order?</span>
+                        <span class="text-cyan">+</span>
+                    </button>
+                    <div class="accordion-content px-6 pb-4">
+                        <p class="text-offWhite/70 text-sm">Browse products, add to cart, fill the order form, and submit. You'll get an instant confirmation with Venmo payment instructions.</p>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-xl overflow-hidden">
+                    <button class="accordion-btn w-full px-6 py-4 text-left font-medium flex justify-between items-center" onclick="toggleAccordion(this)">
+                        <span>What payment methods do you accept?</span>
+                        <span class="text-cyan">+</span>
+                    </button>
+                    <div class="accordion-content px-6 pb-4">
+                        <p class="text-offWhite/70 text-sm">Venmo only (@heather-Necaise). Payment instructions appear immediately after you submit the order.</p>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-xl overflow-hidden">
+                    <button class="accordion-btn w-full px-6 py-4 text-left font-medium flex justify-between items-center" onclick="toggleAccordion(this)">
+                        <span>Is shipping included?</span>
+                        <span class="text-cyan">+</span>
+                    </button>
+                    <div class="accordion-content px-6 pb-4">
+                        <p class="text-offWhite/70 text-sm">Flat $10 shipping is added to every order. Ships via USPS Priority with tracking.</p>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-xl overflow-hidden">
+                    <button class="accordion-btn w-full px-6 py-4 text-left font-medium flex justify-between items-center" onclick="toggleAccordion(this)">
+                        <span>Is bacteriostatic water included?</span>
+                        <span class="text-cyan">+</span>
+                    </button>
+                    <div class="accordion-content px-6 pb-4">
+                        <p class="text-offWhite/70 text-sm">Yes — free with your first order! Additional vials are available for $20.</p>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-xl overflow-hidden">
+                    <button class="accordion-btn w-full px-6 py-4 text-left font-medium flex justify-between items-center" onclick="toggleAccordion(this)">
+                        <span>How should I store peptides?</span>
+                        <span class="text-cyan">+</span>
+                    </button>
+                    <div class="accordion-content px-6 pb-4">
+                        <p class="text-offWhite/70 text-sm">Unreconstituted: cool, dry place or refrigerator for long-term storage. Once reconstituted: refrigerate and use within 4–6 weeks.</p>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-xl overflow-hidden">
+                    <button class="accordion-btn w-full px-6 py-4 text-left font-medium flex justify-between items-center" onclick="toggleAccordion(this)">
+                        <span>How fast do you ship?</span>
+                        <span class="text-cyan">+</span>
+                    </button>
+                    <div class="accordion-content px-6 pb-4">
+                        <p class="text-offWhite/70 text-sm">Orders ship within 24 hours of payment confirmation. Most orders arrive within 2-3 business days.</p>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-xl overflow-hidden">
+                    <button class="accordion-btn w-full px-6 py-4 text-left font-medium flex justify-between items-center" onclick="toggleAccordion(this)">
+                        <span>Are these products tested?</span>
+                        <span class="text-cyan">+</span>
+                    </button>
+                    <div class="accordion-content px-6 pb-4">
+                        <p class="text-offWhite/70 text-sm">All peptides are research-grade and third-party tested for purity and quality.</p>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-xl overflow-hidden">
+                    <button class="accordion-btn w-full px-6 py-4 text-left font-medium flex justify-between items-center" onclick="toggleAccordion(this)">
+                        <span>Is packaging discreet?</span>
+                        <span class="text-cyan">+</span>
+                    </button>
+                    <div class="accordion-content px-6 pb-4">
+                        <p class="text-offWhite/70 text-sm">Yes. All orders ship in plain, unmarked packaging with no indication of contents.</p>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-xl overflow-hidden">
+                    <button class="accordion-btn w-full px-6 py-4 text-left font-medium flex justify-between items-center" onclick="toggleAccordion(this)">
+                        <span>Do you ship internationally?</span>
+                        <span class="text-cyan">+</span>
+                    </button>
+                    <div class="accordion-content px-6 pb-4">
+                        <p class="text-offWhite/70 text-sm">Currently US only. Contact us if you have questions about international shipping.</p>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-xl overflow-hidden">
+                    <button class="accordion-btn w-full px-6 py-4 text-left font-medium flex justify-between items-center" onclick="toggleAccordion(this)">
+                        <span>Do you offer consultations?</span>
+                        <span class="text-cyan">+</span>
+                    </button>
+                    <div class="accordion-content px-6 pb-4">
+                        <p class="text-offWhite/70 text-sm">Yes! Fill out the Customer Intake Form above for personalized guidance and recommendations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 border-t border-steel/20">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="mb-6">
+                <p class="font-semibold text-lg mb-2">Heather Necaise</p>
+                <p class="text-cyan mono">(619) 757-7344</p>
+                <p class="text-steel">Venmo: @heather-Necaise</p>
+            </div>
+            
+            <p class="text-sm text-cyan mb-6">
+                Ready to reconstitute — Hospira Bacteriostatic Water included with first order
+            </p>
+            
+            <div class="glass rounded-xl p-4 inline-block">
+                <p class="text-xs text-offWhite/50 max-w-lg">
+                    These statements have not been evaluated by the FDA. These products are not intended to diagnose, treat, cure, or prevent any disease. For research purposes only. Seller assumes no liability. Consult your physician before use.
+                </p>
+            </div>
+            
+            <p class="text-xs text-offWhite/30 mt-6">© 2026 All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Product Data
+        const products = [
+            { id: 'aod9604', name: 'AOD-9604', size: '5mg', price: 80, category: 'weight', description: 'A fragment of human growth hormone studied for fat metabolism. Supports fat loss and metabolic function without affecting appetite or muscle.' },
+            { id: 'adamax', name: 'Adamax', size: '10mg', price: 80, category: 'cognitive', description: 'Advanced nootropic peptide researched for cognitive enhancement and neuroprotection.' },
+            { id: 'bpc157', name: 'BPC-157', size: '10mg', price: 100, category: 'healing', description: 'Stable gastric pentadecapeptide studied extensively for gut repair, tissue healing, and anti-inflammatory effects.' },
+            { id: 'bpc157tb500', name: 'BPC-157/TB-500', size: '10/10mg', price: 135, category: 'healing', description: 'Synergistic healing stack combining two of the most researched regenerative peptides.' },
+            { id: 'cag', name: 'CAG', size: '5mg', price: 110, category: 'weight', description: 'Appetite-suppressing peptide researched for weight management support.' },
+            { id: 'cartalax', name: 'Cartalax', size: '25mg', price: 70, category: 'healing', description: 'Cartilage-support peptide researched for joint health and mobility.' },
+            { id: 'cjc1295ipa', name: 'CJC-1295/Ipamorelin', size: '10/10mg', price: 70, category: 'performance', description: 'Growth-hormone-releasing combo studied for muscle preservation, fat loss, and recovery.' },
+            { id: 'dsip', name: 'DSIP', size: '5mg', price: 60, category: 'cognitive', description: 'Delta sleep-inducing peptide studied for deeper rest and stress reduction.' },
+            { id: 'epithalon', name: 'Epithalon', size: '50mg', price: 140, category: 'antiaging', description: 'Telomere-lengthening peptide researched for anti-aging and cellular longevity.' },
+            { id: 'ghkcu', name: 'GHK-Cu', size: '100mg', price: 80, category: 'antiaging', description: 'Copper peptide studied for skin regeneration, collagen production, and wound healing.' },
+            { id: 'glowstack', name: 'GLOW Stack', size: '50/10/10mg', price: 150, category: 'antiaging', description: 'Skin, hair, and collagen restoration stack combining GHK-Cu, TB-500, and BPC-157.' },
+            { id: 'ipamorelin', name: 'Ipamorelin', size: '10mg', price: 80, category: 'performance', description: 'Selective growth-hormone secretagogue studied for lean muscle and recovery.' },
+            { id: 'kpv', name: 'KPV', size: '10mg', price: 65, category: 'healing', description: 'Anti-inflammatory tripeptide researched for gut and systemic inflammation support.' },
+            { id: 'll37', name: 'LL-37', size: '4mg', price: 80, category: 'immune', description: 'Antimicrobial peptide studied for immune and microbiome support.' },
+            { id: 'melanotan1', name: 'Melanotan-1', size: '10mg', price: 60, category: 'antiaging', description: 'Peptide studied for pigmentation and UV protection.' },
+            { id: 'motsc', name: 'MOTS-C', size: '40mg', price: 130, category: 'performance', description: 'Mitochondrial-derived peptide researched for metabolic health and endurance.' },
+            { id: 'nad', name: 'NAD+', size: '1000mg', price: 150, category: 'antiaging', description: 'Cellular energy and longevity compound researched for cognition and vitality.' },
+            { id: 'pt141', name: 'PT-141', size: '12.5mg', price: 60, category: 'performance', description: 'Peptide studied for libido and sexual wellness.' },
+            { id: 'reta10', name: 'RETA 10mg', size: '10mg', price: 135, category: 'weight', description: 'GLP-1 receptor agonist researched for appetite and blood-sugar support.' },
+            { id: 'reta20', name: 'RETA 20mg', size: '20mg', price: 235, category: 'weight', description: 'Higher-dose GLP-1 for advanced metabolic support.' },
+            { id: 'selank', name: 'Selank', size: '10mg', price: 55, category: 'cognitive', description: 'Anxiolytic peptide researched for clarity and stress relief.' },
+            { id: 'semax', name: 'Semax', size: '10mg', price: 55, category: 'cognitive', description: 'Nootropic peptide studied for focus, memory, and neuroprotection.' },
+            { id: 'sema', name: 'SEMA', size: '5mg', price: 110, category: 'weight', description: 'GLP-1 analog studied for weight management.' },
+            { id: 'slupp332', name: 'SLU-PP-332', size: '5mg', price: 95, category: 'performance', description: 'Exercise-mimetic peptide researched for metabolic performance.' },
+            { id: 'ss31', name: 'SS-31', size: '10mg', price: 60, category: 'antiaging', description: 'Mitochondrial-targeted peptide studied for energy and cellular protection.' },
+            { id: 'ta1complex', name: 'TA-1 Complex', size: '10/6mg', price: 100, category: 'immune', description: 'Immune-modulating complex researched for thymus and antiviral support.' },
+            { id: 'tb500', name: 'TB-500', size: '10mg', price: 80, category: 'healing', description: 'Actin-sequestering peptide studied for tissue repair and flexibility.' },
+            { id: 'tesamorelin', name: 'Tesamorelin', size: '20mg', price: 130, category: 'performance', description: 'Growth-hormone-releasing peptide studied for visceral fat reduction.' },
+            { id: 'tesaipa', name: 'Tesa/Ipa Combo', size: '10/5mg', price: 95, category: 'performance', description: 'Growth-hormone-releasing combo studied for body recomposition.' },
+            { id: 'thymalin', name: 'Thymalin', size: '10mg', price: 70, category: 'immune', description: 'Thymus peptide researched for immune function.' },
+            { id: 'thymosinalpha', name: 'Thymosin Alpha I', size: '10mg', price: 90, category: 'immune', description: 'Immune peptide studied for antiviral and immune support.' },
+            { id: 'tirz10', name: 'TIRZ 10mg', size: '10mg', price: 125, category: 'weight', description: 'Dual GIP/GLP-1 agonist researched for metabolism and weight support.' },
+            { id: 'tirz30', name: 'TIRZ 30mg', size: '30mg', price: 275, category: 'weight', description: 'Higher-dose dual agonist for advanced metabolic goals.' },
+            { id: 'bacwater', name: 'Bacteriostatic Water', size: '30ml', price: 20, category: 'all', description: 'Pharmaceutical-grade Hospira sterile water for peptide reconstitution. Free with first order!' },
+        ];
+
+        // Cart State
+        let cart = [];
+        
+        // Render Products
+        function renderProducts(category = 'all') {
+            const grid = document.getElementById('product-grid');
+            const filtered = category === 'all' 
+                ? products 
+                : products.filter(p => p.category === category || p.id === 'bacwater');
+            
+            grid.innerHTML = filtered.map(product => `
+                <div class="glass rounded-xl p-4 transition-all cursor-pointer" onclick="toggleProductDetails('${product.id}')">
+                    <div class="flex justify-between items-start mb-2">
+                        <h4 class="font-semibold text-offWhite">${product.name}</h4>
+                        <span class="mono text-cyan font-bold">$${product.price}</span>
+                    </div>
+                    <p class="text-sm text-offWhite/50 mb-2">${product.size}</p>
+                    <div id="details-${product.id}" class="product-details">
+                        <p class="text-sm text-offWhite/70 mb-3">${product.description}</p>
+                    </div>
+                    <div class="flex items-center justify-between mt-3 pt-3 border-t border-steel/20">
+                        <button onclick="event.stopPropagation(); adjustQty('${product.id}', -1)" class="w-8 h-8 rounded-full glass text-cyan font-bold">−</button>
+                        <span id="qty-${product.id}" class="mono">0</span>
+                        <button onclick="event.stopPropagation(); adjustQty('${product.id}', 1)" class="w-8 h-8 rounded-full glass text-cyan font-bold">+</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Toggle Product Details
+        function toggleProductDetails(id) {
+            const details = document.getElementById(`details-${id}`);
+            details.classList.toggle('open');
+        }
+        
+        // Filter Products
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderProducts(btn.dataset.category);
+                // Re-apply cart quantities
+                cart.forEach(item => {
+                    const qtyEl = document.getElementById(`qty-${item.id}`);
+                    if (qtyEl) qtyEl.textContent = item.qty;
+                });
+            });
+        });
+        
+        // Adjust Quantity
+        function adjustQty(id, delta) {
+            const product = products.find(p => p.id === id);
+            let cartItem = cart.find(c => c.id === id);
+            
+            if (cartItem) {
+                cartItem.qty = Math.max(0, cartItem.qty + delta);
+                if (cartItem.qty === 0) {
+                    cart = cart.filter(c => c.id !== id);
+                }
+            } else if (delta > 0) {
+                cart.push({ ...product, qty: 1 });
+            }
+            
+            document.getElementById(`qty-${id}`).textContent = cart.find(c => c.id === id)?.qty || 0;
+            updateCartDisplay();
+        }
+        
+        // Update Cart Display
+        function updateCartDisplay() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const total = subtotal + 10; // $10 shipping
+            const itemCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            
+            // Desktop cart
+            const desktopItems = document.getElementById('cart-items-desktop');
+            if (cart.length === 0) {
+                desktopItems.innerHTML = '<p class="text-offWhite/50 text-sm">No items yet</p>';
+            } else {
+                desktopItems.innerHTML = cart.map(item => `
+                    <div class="flex justify-between text-sm">
+                        <span>${item.name} x${item.qty}</span>
+                        <span class="mono">$${item.price * item.qty}</span>
+                    </div>
+                `).join('');
+            }
+            document.getElementById('subtotal-desktop').textContent = `$${subtotal}`;
+            document.getElementById('total-desktop').textContent = `$${total}`;
+            
+            // Mobile cart
+            document.getElementById('cart-count').textContent = itemCount;
+            document.getElementById('total-mobile').textContent = `$${total}`;
+            
+            // Show/hide mobile cart bar
+            const cartBar = document.getElementById('cart-mobile');
+            if (itemCount > 0) {
+                cartBar.classList.add('visible');
+            } else {
+                cartBar.classList.remove('visible');
+            }
+            
+            // Order summary
+            const orderSummary = document.getElementById('order-summary');
+            if (cart.length === 0) {
+                orderSummary.innerHTML = '<p class="text-offWhite/50 text-sm">No items in cart</p>';
+            } else {
+                orderSummary.innerHTML = cart.map(item => `
+                    <div class="flex justify-between text-sm">
+                        <span>${item.name} (${item.size}) x${item.qty}</span>
+                        <span class="mono">$${item.price * item.qty}</span>
+                    </div>
+                `).join('');
+            }
+            document.getElementById('subtotal-order').textContent = `$${subtotal}`;
+            document.getElementById('total-order').textContent = `$${total}`;
+        }
+        
+        // FAQ Accordion
+        function toggleAccordion(btn) {
+            const content = btn.nextElementSibling;
+            const icon = btn.querySelector('span:last-child');
+            content.classList.toggle('open');
+            icon.textContent = content.classList.contains('open') ? '−' : '+';
+        }
+        
+        // Order Form Submission
+        document.getElementById('order-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (cart.length === 0) {
+                alert('Please add items to your cart before submitting.');
+                return;
+            }
+            
+            const formData = new FormData(e.target);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const total = subtotal + 10;
+            
+            const orderData = {
+                type: 'order',
+                timestamp: new Date().toISOString(),
+                orderRef: 'ORD-' + Date.now().toString().slice(-6),
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                street: formData.get('street'),
+                city: formData.get('city'),
+                state: formData.get('state'),
+                zip: formData.get('zip'),
+                firstOrder: formData.get('firstOrder'),
+                notes: formData.get('notes'),
+                items: cart.map(i => `${i.name} (${i.size}) x${i.qty}`).join(', '),
+                subtotal: subtotal,
+                shipping: 10,
+                total: total
+            };
+            
+            // Submit to Google Sheets (replace URL with your deployed script URL)
+            try {
+                // For now, just show confirmation (replace with actual Google Sheets submission)
+                // await fetch('YOUR_GOOGLE_SCRIPT_URL', {
+                //     method: 'POST',
+                //     body: JSON.stringify(orderData)
+                // });
+                
+                document.getElementById('order-ref').textContent = orderData.orderRef;
+                document.getElementById('confirm-total').textContent = `$${total}`;
+                document.getElementById('confirmation-modal').classList.remove('hidden');
+                document.getElementById('confirmation-modal').classList.add('flex');
+                
+                // Clear cart
+                cart = [];
+                renderProducts();
+                updateCartDisplay();
+                e.target.reset();
+                
+            } catch (error) {
+                alert('Error submitting order. Please try again or contact us directly.');
+            }
+        });
+        
+        // Intake Form Submission
+        document.getElementById('intake-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const goals = [];
+            formData.getAll('goals').forEach(g => goals.push(g));
+            
+            const intakeData = {
+                type: 'intake',
+                timestamp: new Date().toISOString(),
+                name: formData.get('intake_name'),
+                email: formData.get('intake_email'),
+                phone: formData.get('intake_phone'),
+                goals: goals.join(', '),
+                experience: formData.get('experience'),
+                previousPeptides: formData.get('previous_peptides'),
+                additionalInfo: formData.get('additional_info'),
+                contactMethod: formData.get('contact_method')
+            };
+            
+            // Submit to Google Sheets (replace URL with your deployed script URL)
+            try {
+                // await fetch('YOUR_GOOGLE_SCRIPT_URL', {
+                //     method: 'POST',
+                //     body: JSON.stringify(intakeData)
+                // });
+                
+                alert('Thank you! We\'ll be in touch soon.');
+                e.target.reset();
+                
+            } catch (error) {
+                alert('Error submitting form. Please try again or contact us directly.');
+            }
+        });
+        
+        // Close Modal
+        function closeModal() {
+            document.getElementById('confirmation-modal').classList.add('hidden');
+            document.getElementById('confirmation-modal').classList.remove('flex');
+        }
+        
+        // Copy Venmo
+        function copyVenmo() {
+            navigator.clipboard.writeText('@heather-Necaise');
+            alert('Copied to clipboard!');
+        }
+        
+        // Initialize
+        renderProducts();
+        updateCartDisplay();
+    </script>
+</body>
+</html>
